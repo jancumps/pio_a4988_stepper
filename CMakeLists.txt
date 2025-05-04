@@ -24,20 +24,20 @@ FetchContent_Declare(stepper_driver
 )
 FetchContent_MakeAvailable(stepper_driver)
 
-FetchContent_Declare(pico_a988
+FetchContent_Declare(pico_a4988
   GIT_REPOSITORY "https://github.com/jancumps/pico_a4988_lib.git"
   GIT_TAG "origin/main"
   # prevent makefile execution (if any)
   SOURCE_SUBDIR =
 )
-FetchContent_MakeAvailable(pico_a988)
+FetchContent_MakeAvailable(pico_a4988)
 
 add_library(driver)
 target_sources(driver
         PUBLIC
         FILE_SET cxx_modules TYPE CXX_MODULES FILES
         ${stepper_driver_SOURCE_DIR}/source/stepper_driver.cpp
-        ${pico_a988_SOURCE_DIR}/source/a4988_pico.cpp
+        ${pico_a4988_SOURCE_DIR}/source/a4988_pico.cpp
 )
 target_link_libraries(driver $<COMPILE_ONLY:hardware_gpio>)
 # end DRIVER IC specific
