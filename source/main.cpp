@@ -18,10 +18,11 @@ import a4988_pico;      // driver classes and registers
 
 import stepper;           // PIO stepper lib
 
+#define MICROSTEP_16
 // #define MICROSTEP_8
-// #define MICROSTEP_8
+// #define MICROSTEP_2
 
-const uint dir = 4U; // implies that step is gpio 5
+const uint dir = 14U; // implies that step is gpio 15
 
 const uint n_enable = 6U;
 const uint ms1 = 7U;
@@ -35,14 +36,17 @@ const uint pio_irq = 0;
 // state machine
 const uint sm = 2U;
 
-#ifdef MICROSTEP_8
-const float clock_divider = 3; // works well for 8 microsteps
+#ifdef MICROSTEP_16
+const float clock_divider = 8; // works well for 16 microsteps
+const uint microstep_x = 16;
+#elifdef MICROSTEP_8
+const float clock_divider = 6; // works well for 8 microsteps
 const uint microstep_x = 8;
 #elifdef MICROSTEP_2
-const float clock_divider = 8; // works well for 8 microsteps
+const float clock_divider = 14; // works well for 2 microsteps
 const uint microstep_x = 2;
 #else
-const float clock_divider = 16; // works well for no microsteps
+const float clock_divider = 24; // works well for no microsteps
 const uint microstep_x = 1;
 #endif
 
@@ -106,22 +110,18 @@ void full_demo(const commands_t & cmd) {
     sleep_ms(1); // see datasheet
 
     run_with_delay(cmd, 4300);
-    run_with_delay(cmd, 7000);
-    run_with_delay(cmd, 9000);
-    run_with_delay(cmd, 20000);
+    // run_with_delay(cmd, 7000);
+    // run_with_delay(cmd, 9000);
+    // run_with_delay(cmd, 20000);
 }
 
 int main() {
     init_everything();
-    std::array<stepper::command, 7> cmd{{
-        {20 * microstep_x, true}, 
-        {20 * microstep_x, false},
-        {20 * microstep_x, false},
-        {40 * microstep_x, false},
-        {25 * microstep_x, true},
-        {35 * microstep_x, true},
-        {200 * microstep_x, true}}
-    };
+    std::array<stepper::command, 4> cmd{{
+        {60 * microstep_x, false},
+        {120 * microstep_x, true}, 
+        {120 * microstep_x, false},
+        {60 * microstep_x, true}}};
 
     motor1.on_complete_callback(on_complete); 
 
