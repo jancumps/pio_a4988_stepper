@@ -22,7 +22,7 @@ import stepper;           // PIO stepper lib
 // #define MICROSTEP_8
 // #define MICROSTEP_2
 
-const uint dir = 14U; // implies that step is gpio 15
+const uint dir = 4U; // implies that step is gpio 5
 
 const uint n_enable = 6U;
 const uint ms1 = 7U;
