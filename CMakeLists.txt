@@ -1,11 +1,13 @@
 cmake_minimum_required(VERSION 3.28)
 
+#set(PICO_BOARD pico2_w CACHE STRING "Board type")
+#set(PICO_PLATFORM rp2350-riscv CACHE STRING "Pico Platform")
+set(CMAKE_CXX_STANDARD 26)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fmodules-ts -fcommon -fno-rtti -fno-exceptions")
+
 include(pico_sdk_import.cmake)
 
 project(pio_a4988_stepper C CXX ASM)
-
-set(CMAKE_CXX_STANDARD 26)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fmodules-ts -fcommon -fno-rtti -fno-exceptions")
 
 pico_sdk_init()
 
