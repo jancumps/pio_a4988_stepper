@@ -1,3 +1,5 @@
+cmake_minimum_required(VERSION 3.28)
+
 set(PICO_BOARD pico2_w CACHE STRING "Board type")
 set(CMAKE_CXX_STANDARD 26)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fmodules-ts -fcommon -fno-rtti -fno-exceptions")
@@ -17,8 +19,6 @@ if (EXISTS ${picoVscode})
     include(${picoVscode})
 endif()
 # ====================================================================================
-cmake_minimum_required(VERSION 3.28)
-
 
 include(pico_sdk_import.cmake)
 
