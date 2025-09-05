@@ -1,10 +1,24 @@
-cmake_minimum_required(VERSION 3.28)
-
-#set(PICO_BOARD pico2_w CACHE STRING "Board type")
-#set(PICO_PLATFORM rp2350-riscv CACHE STRING "Pico Platform")
-#set(PICO_COMPILER "pico_riscv_gcc_zcb_zcmp")
+set(PICO_BOARD pico2_w CACHE STRING "Board type")
 set(CMAKE_CXX_STANDARD 26)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fmodules-ts -fcommon -fno-rtti -fno-exceptions")
+
+
+# == DO NOT EDIT THE FOLLOWING LINES for the Raspberry Pi Pico VS Code Extension to work ==
+if(WIN32)
+    set(USERHOME $ENV{USERPROFILE})
+else()
+    set(USERHOME $ENV{HOME})
+endif()
+set(sdkVersion 2.2.0)
+set(toolchainVersion RISCV_ZCB_RPI_2_1_1_3)
+set(picotoolVersion 2.2.0)
+set(picoVscode ${USERHOME}/.pico-sdk/cmake/pico-vscode.cmake)
+if (EXISTS ${picoVscode})
+    include(${picoVscode})
+endif()
+# ====================================================================================
+cmake_minimum_required(VERSION 3.28)
+
 
 include(pico_sdk_import.cmake)
 
